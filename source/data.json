@@ -20,19 +20,26 @@
 		"mobile": null
 	},
 	"images": {
-		"map": {
+		"example": {
 			"ext": "png",
-			"width": 320,
-			"height": 454,
 			"maxdppx": 2,
-			"viewports": ["desktop", "tablet", "mobile"]
-		},
-		"test": {
-			"ext": "png",
-			"width": 320,
-			"height": 320,
-			"maxdppx": 2,
-			"viewports": ["desktop", "tablet", "mobile"]
+			"sizes": [
+				{
+					"viewport": "desktop",
+					"width": 1280,
+					"height": 1280
+				},
+				{
+					"viewport": "tablet",
+					"width": 640,
+					"height": 640
+				},
+				{
+					"viewport": "mobile",
+					"width": 320,
+					"height": 320
+				}
+			]
 		}
 	}
 }

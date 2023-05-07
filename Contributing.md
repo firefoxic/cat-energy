@@ -10,8 +10,8 @@
 
 1. В своей локальной копии переключись в ветку `master`
 
-    ```shell
-  	git checkout master
+	```shell
+	git checkout master
 	```
 
 2. Забери изменения из основного репозитория

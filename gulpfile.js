@@ -1,10 +1,9 @@
+import data from './source/data.json' assert { type: 'json'};
 import gulp from 'gulp';
 import browser from 'browser-sync';
 import plumber from 'gulp-plumber';
-import data from './source/data.json' assert { type: 'json'};
 import twig from 'gulp-twig';
 import htmlmin from 'gulp-htmlmin';
-import { htmlValidator } from 'gulp-w3c-html-validator';
 import bemlinter from 'gulp-html-bemlinter';
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
@@ -33,12 +32,6 @@ export function processMarkup () {
 		.pipe(dest('./build'))
 }
 
-export function validateMarkup () {
-	return src('./build/*.html')
-		.pipe(htmlValidator.analyzer())
-		.pipe(htmlValidator.reporter({ throwErrors: true }));
-}
-
 export function lintBem () {
 	return src('./build/*.html')
 		.pipe(bemlinter());
@@ -51,7 +44,7 @@ export function processStyles () {
 			'getext($name)': (name) => new dartSass.types.String(data.images[name.getValue()].ext),
 			'getmaxdppx($name)': (name) => new dartSass.types.Number(data.images[name.getValue()].maxdppx),
 			'getviewports($name)': function (name) {
-				let [...vps] = data.images[name.getValue()].viewports;
+				let vps = data.images[name.getValue()].sizes.map((size) => size.viewport);
 				let viewports = new dartSass.types.List(vps.length);
 				vps.reverse().forEach((vp, i) => { viewports.setValue(i, new dartSass.types.String(vp)) });
 				return viewports;
@@ -165,17 +158,13 @@ export function compileProject (done) {
 	)(done);
 }
 
-// Production
-
-export function build (done) {
+export function buildProd (done) {
 	data.isDevelopment = false;
 	series(
 		removeBuild,
 		compileProject
 	)(done);
 }
-
-// Development
 
 export function runDev (done) {
 	series(

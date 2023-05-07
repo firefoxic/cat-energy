@@ -13,7 +13,7 @@
 	min-height: 100%;
 	background: hsl(0 0% 96%) var(--bg-image) no-repeat center / contain;
 
-	@include bg-image(test);
+	@include bg-image(example);
 }
 
 .page__centerer {
