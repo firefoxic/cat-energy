@@ -39,9 +39,21 @@ jobs:
         env:
           REPO_NAME: ${{ github.event.repository.name }}
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          folder: ./build
-          branch: gh-pages
-          single-commit: true
+          path: ./build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+      # - name: Deploy
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     folder: ./build
+      #     branch: gh-pages
+      #     single-commit: true
