@@ -5,7 +5,7 @@ import plumber from 'gulp-plumber';
 import twig from 'gulp-twig';
 import htmlmin from 'gulp-htmlmin';
 import bemlinter from 'gulp-html-bemlinter';
-import dartSass from 'sass';
+import * as dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 import { stacksvg } from 'gulp-stacksvg';
 import svgo from 'gulp-svgmin';
