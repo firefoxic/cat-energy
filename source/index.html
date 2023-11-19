@@ -1,9 +1,15 @@
-{% set pageId = 0 %}
-{% set permalink = pages[pageId].path %}
-{% extends "./templates/_layout.twig" %}
+{% set page = {
+	title: "Главная",
+	link: project.root
+} %}
+{% extends "./layouts/base.njk" %}
 
 {% block main %}
-<main>
-	Контент главной страницы
-</main>
+
+	<p>Контент главной страницы</p>
+
+	{# Пример вставки picture #}
+	{% from "./templates/picture.njk" import picture with context %}
+	{{ picture("hero-product", class="hero__product", alt="Банка с кормом") }}
+
 {% endblock %}

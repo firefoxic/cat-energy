@@ -1,0 +1,25 @@
+{% set navLinks = [
+	{
+		"path": project.root,
+		"name": "Главная"
+	},
+	{
+		"path": project.root + "catalog/",
+		"name": "Каталог продукции"
+	},
+	{
+		"path": project.root + "form/",
+		"name": "Подбор программы"
+	}
+] %}
+
+<nav class="main-nav main-nav--nojs main-nav--opened">
+	<ul class="main-nav__list">
+		{# Генерация пунктов списка навигации циклом по массиву pages из data.json #}
+		{% for navLink in navLinks %}
+		<li class="main-nav__item">
+			<a class="main-nav__link link" href="{{ navLink.path }}" {% if page.link === navLink.path %} aria-current="page" {% endif %}>{{ navLink.name }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</nav>

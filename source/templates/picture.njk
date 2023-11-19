@@ -1,0 +1,51 @@
+{% macro picture(name, class = "", alt = "") %}
+
+{% set formats = ["avif", "webp"] %}
+{% set image = images[name] %}
+{% set densities = range(1, image.maxdppx + 1) %}
+
+<picture>
+	{% for format in formats -%}
+
+		{% set lastFormat = loop.last %}
+
+		{% for size in image.sizes -%}
+
+			{% if not lastFormat or not loop.last -%}
+
+				<source
+					{% if viewports[size.viewport] -%}
+					media="(min-width: {{ viewports[size.viewport] }}px)"
+					{%- endif %}
+					srcset="
+						{%- for dppx in densities -%}
+							{{ project.root }}images/{{ name }}-{{ size.viewport }}@{{ dppx }}x.{{ format }} {{ dppx }}x
+							{%- if dppx != image.maxdppx %}, {% endif -%}
+						{%- endfor -%}
+					"
+					type="image/{{ format }}"
+					width="{{ size.width }}"
+					height="{{ size.height }}"
+				>
+			{%- else -%}
+				<img
+					class="{{ class }}"
+					src="{{ project.root }}images/{{ name }}-{{ size.viewport }}@1x.{{ format }}"
+					srcset="
+						{%- for dppx in densities if dppx !== 1 -%}
+							{{ project.root }}images/{{ name }}-{{ size.viewport }}@{{ dppx }}x.{{ format }} {{ dppx }}x
+							{%- if dppx != image.maxdppx -%}, {% endif -%}
+						{%- endfor -%}
+					"
+					width="{{ size.width }}"
+					height="{{ size.height }}"
+					alt="{{ alt }}"
+				>
+
+			{%- endif -%}
+
+		{%- endfor -%}
+
+	{%- endfor -%}
+</picture>
+{% endmacro %}

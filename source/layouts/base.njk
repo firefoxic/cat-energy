@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html class="page" lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ project.name }}: {{ page.title }}</title>
+	<link rel="stylesheet" href="{{ project.root }}styles/style.css">
+	<link rel="preload" href="{{ project.root }}fonts/lato-400.woff2" type="font/woff2" as="font" crossorigin="anonymous">
+	<link rel="preload" href="{{ project.root }}fonts/oswald-400.woff2" type="font/woff2" as="font" crossorigin="anonymous">
+	<script src="{{ project.root }}scripts/index.js" defer></script>
+</head>
+
+<body class="page__body">
+	{% include "../templates/header.njk" %}
+
+	<main class="main-content">
+		{% block main %}{% endblock %}
+	</main>
+
+	{% include "../templates/footer.njk" %}
+</body>
+
+</html>

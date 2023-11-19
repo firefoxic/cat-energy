@@ -7,11 +7,13 @@
 			{
 				"ignoreAtRules": [
 					"each",
+					"for",
 					"forward",
 					"if",
 					"include",
 					"mixin",
-					"while"
+					"while",
+					"use"
 				]
 			}
 		],

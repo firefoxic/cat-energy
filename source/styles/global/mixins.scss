@@ -1,0 +1,33 @@
+@mixin bg-image($name) {
+	$maxdppx: getmaxdppx($name);
+	$viewports: getviewports($name);
+	$formats: avif, webp;
+
+	@each $viewport in $viewports {
+		$media-query: null;
+
+		@if $viewport == mobile {
+			$media-query: all;
+		}
+
+		@if $viewport == tablet {
+			$media-query: $not-mobile;
+		}
+
+		@if $viewport == desktop {
+			$media-query: $desktop-only;
+		}
+
+		$urls: null;
+
+		@media #{$media-query} {
+			@each $format in $formats {
+				@for $dppx from 1 through $maxdppx {
+					$urls: $urls, url("../../images/#{$name}-#{$viewport}@#{$dppx}x.#{$format}") type("image/#{$format}") #{$dppx}x;
+					$dppx: $dppx + 1;
+				}
+			}
+			--bg-image: image-set(#{$urls});
+		}
+	}
+}
